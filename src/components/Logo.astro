@@ -1,0 +1,20 @@
+---
+import { SITE } from 'astrowind:config';
+---
+
+<span class="self-center flex items-center gap-2 whitespace-nowrap" dir="ltr">
+  <svg class="w-9 h-9 shrink-0 rounded-lg dark:ring-1 dark:ring-slate-600" viewBox="0 0 1024 1024" aria-hidden="true">
+    <rect width="1024" height="1024" rx="224" fill="#0F172A"></rect>
+    <g transform="translate(12,0)">
+      <path
+        d="M300 664 V360 L430 520 L560 360 V664 H700"
+        fill="none"
+        stroke="#FFFFFF"
+        stroke-width="60"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+      <circle cx="700" cy="376" r="40" fill="#2DD4BF"></circle>
+    </g>
+  </svg>
+  <span class="text-2xl md:text-xl font-bold text-gray-900 dark:text-white">{SITE?.name}</span>
+</span>

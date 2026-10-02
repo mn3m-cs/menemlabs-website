@@ -1,0 +1,69 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+
+import { SITE } from 'astrowind:config';
+import favIconSvg from '~/assets/favicons/favicon.svg';
+
+import { t, type Locale } from '~/i18n';
+import { CONTACT_EMAIL, CONTACT_HREF } from '~/navigation';
+
+export interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = t(locale);
+
+const OPEN_GRAPH_LOCALES: Record<Locale, string> = { en: 'en_US', ar: 'ar_AR' };
+
+const metadata = {
+  title: dict.metadata.title,
+  description: dict.metadata.description,
+  ignoreTitleTemplate: true,
+  openGraph: { locale: OPEN_GRAPH_LOCALES[locale] },
+};
+
+const organizationId = `${SITE?.site}/#organization`;
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE?.site}/#website`,
+    name: SITE?.name,
+    url: SITE?.site,
+    inLanguage: locale,
+    publisher: { '@id': organizationId },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': organizationId,
+    name: SITE?.name,
+    url: SITE?.site,
+    email: CONTACT_EMAIL,
+    logo: new URL(favIconSvg.src, SITE?.site).toString(),
+  },
+];
+---
+
+<Layout metadata={metadata} locale={locale} translatedPath="/">
+  <StructuredData slot="head" schema={structuredData} />
+
+  <Hero
+    tagline={dict.hero.tagline}
+    title={dict.hero.title}
+    subtitle={dict.hero.subtitle}
+    actions={[{ variant: 'primary', text: dict.hero.primaryAction, href: CONTACT_HREF, icon: 'tabler:mail' }]}
+  />
+
+  <CallToAction
+    id="contact"
+    title={dict.contact.title}
+    subtitle={dict.contact.subtitle}
+    actions={[{ variant: 'primary', text: CONTACT_EMAIL, href: CONTACT_HREF, icon: 'tabler:mail' }]}
+  />
+</Layout>
