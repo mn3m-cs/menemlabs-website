@@ -50,10 +50,11 @@ The site runs as a small nginx container on the Hostinger VPS, next to VetDiwan,
 ### First-time setup on the VPS
 
 ```bash
-docker compose -p menemlabs-website -f compose.yaml up -d
-docker network connect menemlabs-website <traefik-container>
+mkdir -p ~/menemlabs-website && cd ~/menemlabs-website
+curl -fsSL https://raw.githubusercontent.com/mn3m-cs/menemlabs-website/main/deploy/hostinger/compose.yaml -o compose.yaml
+docker compose -p menemlabs-website up -d
 ```
 
-Traefik only reaches containers on networks it is attached to, so it must join `menemlabs-website` once — the same way it is attached to VetDiwan's `aleefy-testing` network. If the VPS's Traefik uses different entrypoint or certificate-resolver names, set `TRAEFIK_ENTRYPOINT` / `TRAEFIK_CERTRESOLVER`.
+The VPS's Traefik (`traefik-traefik-1`) shares the host's network namespace, so it reaches the container directly — `docker network connect` is neither needed nor possible. If its entrypoint or certificate-resolver names ever differ, set `TRAEFIK_ENTRYPOINT` / `TRAEFIK_CERTRESOLVER` in a `.env` next to `compose.yaml`.
 
 DNS: `menemlabs.tech` and `www.menemlabs.tech` already point at the VPS (31.97.185.167).
