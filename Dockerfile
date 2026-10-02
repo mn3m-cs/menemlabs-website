@@ -1,12 +1,7 @@
-FROM node:lts AS base
+FROM node:22 AS build
 WORKDIR /app
-
-FROM base AS deps
 COPY package*.json ./
-RUN npm install
-
-FROM base AS build
-COPY --from=deps /app/node_modules ./node_modules
+RUN npm ci
 COPY . .
 RUN npm run build
 

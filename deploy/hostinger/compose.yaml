@@ -1,0 +1,21 @@
+services:
+  website:
+    image: ghcr.io/mn3m-cs/menemlabs-website:${WEBSITE_IMAGE_TAG:-latest}
+    restart: unless-stopped
+    expose:
+      - '8080'
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=menemlabs-website
+      - 'traefik.http.routers.menemlabs-website.rule=Host(`menemlabs.tech`) || Host(`www.menemlabs.tech`)'
+      - 'traefik.http.routers.menemlabs-website.entrypoints=${TRAEFIK_ENTRYPOINT:-websecure}'
+      - traefik.http.routers.menemlabs-website.tls=true
+      - 'traefik.http.routers.menemlabs-website.tls.certresolver=${TRAEFIK_CERTRESOLVER:-letsencrypt}'
+      - traefik.http.services.menemlabs-website.loadbalancer.server.port=8080
+    mem_limit: 64m
+    cpus: 0.10
+    pids_limit: 50
+
+networks:
+  default:
+    name: menemlabs-website

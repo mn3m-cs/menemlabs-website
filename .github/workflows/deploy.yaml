@@ -1,4 +1,4 @@
-name: Deploy
+name: Build image
 
 on:
   push:
@@ -8,48 +8,38 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
+  packages: write
 
 concurrency:
-  group: pages
+  group: image
   cancel-in-progress: false
 
 jobs:
-  build:
-    name: Build
+  image:
+    name: Build and push image
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
         with:
-          node-version: 22
-          cache: npm
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Build site
-        run: npm run build
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Build and push
+        uses: docker/build-push-action@v6
         with:
-          path: dist
-
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          context: .
+          push: true
+          tags: |
+            ghcr.io/mn3m-cs/menemlabs-website:latest
+            ghcr.io/mn3m-cs/menemlabs-website:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=min

@@ -2,7 +2,7 @@
 
 The public website of Menem Labs, in English and Arabic.
 
-Live: <https://mn3m-cs.github.io/menemlabs-website/> (English) · <https://mn3m-cs.github.io/menemlabs-website/ar> (Arabic)
+Live: <https://menemlabs.tech/> (English) · <https://menemlabs.tech/ar> (Arabic)
 
 Built on [AstroWind](https://github.com/arthelokyo/astrowind) (Astro 7 + Tailwind CSS 4, MIT — see `LICENSE.md`).
 
@@ -10,7 +10,7 @@ Built on [AstroWind](https://github.com/arthelokyo/astrowind) (Astro 7 + Tailwin
 
 ```bash
 npm ci
-npm run dev      # http://localhost:4321/menemlabs-website/
+npm run dev      # http://localhost:4321/
 npm run build    # static site in dist/
 npm run check    # astro check + ESLint + Prettier — CI runs this on every push
 ```
@@ -38,6 +38,21 @@ Node 22.22.3 or newer.
 
 ## Deploy
 
-Every push to `main` builds the site and publishes it to GitHub Pages (`.github/workflows/deploy.yaml`).
+The site runs as a small nginx container on the Hostinger VPS, next to VetDiwan, behind the VPS's Traefik.
 
-The site currently lives under the `/menemlabs-website` base path. When it moves to `menemlabs.tech`, set `site` to `https://menemlabs.tech` and `base` to `/` in `src/config.yaml`, add a `public/CNAME` containing `menemlabs.tech`, and point the domain's DNS at GitHub Pages.
+1. Every push to `main` builds the image and pushes it to GHCR (`.github/workflows/deploy.yaml`):
+   - `ghcr.io/mn3m-cs/menemlabs-website:latest`
+   - `ghcr.io/mn3m-cs/menemlabs-website:<commit-sha>` — pin this one to roll back.
+2. On the VPS, `deploy/hostinger/compose.yaml` runs it. Traefik routes `menemlabs.tech` and `www.menemlabs.tech` to it and issues the certificate.
+3. To ship a new version: pull the image and restart the stack (or set `WEBSITE_IMAGE_TAG` to a commit sha).
+
+### First-time setup on the VPS
+
+```bash
+docker compose -p menemlabs-website -f compose.yaml up -d
+docker network connect menemlabs-website <traefik-container>
+```
+
+Traefik only reaches containers on networks it is attached to, so it must join `menemlabs-website` once — the same way it is attached to VetDiwan's `aleefy-testing` network. If the VPS's Traefik uses different entrypoint or certificate-resolver names, set `TRAEFIK_ENTRYPOINT` / `TRAEFIK_CERTRESOLVER`.
+
+DNS: `menemlabs.tech` and `www.menemlabs.tech` already point at the VPS (31.97.185.167).
