@@ -11,7 +11,10 @@ export const getHeaderData = (locale: Locale) => {
 
   return {
     homeHref: getLocalePermalink(locale),
-    links: [{ text: dict.nav.contact, href: '#contact' }],
+    links: [
+      { text: dict.nav.work, href: '#work' },
+      { text: dict.nav.contact, href: '#contact' },
+    ],
     actions: [{ text: dict.nav.talkToUs, href: CONTACT_HREF }],
     languageSwitch: {
       text: dict.nav.switchLanguage,
