@@ -44,7 +44,8 @@ The site runs as a small nginx container on the Hostinger VPS, next to VetDiwan,
    - `ghcr.io/mn3m-cs/menemlabs-website:latest`
    - `ghcr.io/mn3m-cs/menemlabs-website:<commit-sha>` — pin this one to roll back.
 2. On the VPS, `deploy/hostinger/compose.yaml` runs it. Traefik routes `menemlabs.tech` and `www.menemlabs.tech` to it and issues the certificate.
-3. To ship a new version: pull the image and restart the stack (or set `WEBSITE_IMAGE_TAG` to a commit sha).
+3. The same workflow then SSHes into the VPS and pulls and restarts the site, and checks that `/` and `/ar` answer. The deploy key is pinned on the VPS to that one command (`restrict,command=…` in `authorized_keys`), so it cannot open a shell. The job only runs once the repository variable `DEPLOY_HOST` is set; it also needs the variable `DEPLOY_USER` and the secrets `DEPLOY_SSH_KEY` and `DEPLOY_KNOWN_HOSTS`.
+4. To roll back, set `WEBSITE_IMAGE_TAG` to an older commit sha in the stack's `.env` on the VPS.
 
 ### First-time setup on the VPS
 
