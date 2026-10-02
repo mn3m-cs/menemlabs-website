@@ -67,7 +67,6 @@ export default {
             title: 'Construction projects',
             description: "Each project's value, the society's share, taxes and progress billing.",
           },
-          { title: 'Loans', description: 'Loans and their repayments.' },
           { title: 'Payments and receipts', description: 'Printed receipts with the amount written out in words.' },
           { title: 'Reports', description: 'Account statements and journal entries exported to Word and PDF.' },
           { title: 'Several workstations', description: 'Every computer in the office works on the same data.' },
