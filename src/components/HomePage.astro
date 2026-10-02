@@ -2,7 +2,8 @@
 import Layout from '~/layouts/PageLayout.astro';
 
 import Hero from '~/components/widgets/Hero.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+import ContactSection from '~/components/widgets/ContactSection.astro';
+import { Icon } from 'astro-icon/components';
 import Content from '~/components/widgets/Content.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 
@@ -11,7 +12,7 @@ import favIconSvg from '~/assets/favicons/favicon.svg';
 import vetdiwanLogo from '~/assets/images/vetdiwan-logo.png';
 
 import { t, type Locale } from '~/i18n';
-import { CONTACT_EMAIL, CONTACT_HREF } from '~/navigation';
+import { CONTACT_EMAIL } from '~/navigation';
 
 export interface Props {
   locale: Locale;
@@ -20,14 +21,26 @@ export interface Props {
 const { locale } = Astro.props;
 const dict = t(locale);
 
-const WORK_ICONS = [
-  'tabler:calendar-event',
-  'tabler:paw',
-  'tabler:stethoscope',
-  'tabler:pill',
-  'tabler:receipt',
-  'tabler:users',
-];
+const PROJECT_ICONS: Record<string, string[]> = {
+  vetdiwan: [
+    'tabler:calendar-event',
+    'tabler:paw',
+    'tabler:stethoscope',
+    'tabler:pill',
+    'tabler:receipt',
+    'tabler:users',
+  ],
+  cooperative: [
+    'tabler:book-2',
+    'tabler:building',
+    'tabler:cash',
+    'tabler:receipt-2',
+    'tabler:file-type-pdf',
+    'tabler:devices-pc',
+  ],
+};
+
+const forwardArrow = locale === 'ar' ? 'tabler:arrow-narrow-left' : 'tabler:arrow-narrow-right';
 
 const OPEN_GRAPH_LOCALES: Record<Locale, string> = { en: 'en_US', ar: 'ar_AR' };
 
@@ -68,35 +81,41 @@ const structuredData = [
     tagline={dict.hero.tagline}
     title={dict.hero.title}
     subtitle={dict.hero.subtitle}
-    actions={[{ variant: 'primary', text: dict.hero.primaryAction, href: CONTACT_HREF, icon: 'tabler:mail' }]}
+    actions={[{ variant: 'primary', text: dict.hero.primaryAction, href: '#contact', icon: 'tabler:mail' }]}
   />
 
-  <Content
-    id="work"
-    tagline={dict.work.tagline}
-    title={dict.work.title}
-    subtitle={dict.work.subtitle}
-    content={dict.work.description}
-    callToAction={{
-      text: dict.work.demo,
-      href: `${CONTACT_HREF}?subject=VetDiwan`,
-      icon: locale === 'ar' ? 'tabler:arrow-narrow-left' : 'tabler:arrow-narrow-right',
-    }}
-    items={dict.work.items.map((item, index) => ({ ...item, icon: WORK_ICONS[index] }))}
-    columns={2}
-  >
-    <div
-      slot="image"
-      class="flex items-center justify-center rounded-2xl bg-white p-12 shadow-lg ring-1 ring-slate-200 dark:ring-slate-700"
-    >
-      <img src={vetdiwanLogo.src} width="160" height="160" alt={dict.work.logoAlt} loading="lazy" />
-    </div>
-  </Content>
+  {
+    dict.work.projects.map((project, index) => (
+      <Content
+        id={index === 0 ? 'work' : `work-${project.id}`}
+        tagline={index === 0 ? dict.work.tagline : undefined}
+        title={project.title}
+        subtitle={project.subtitle}
+        content={project.description}
+        callToAction={{ text: project.action, href: '#contact', icon: forwardArrow }}
+        items={project.items.map((item, itemIndex) => ({ ...item, icon: PROJECT_ICONS[project.id]?.[itemIndex] }))}
+        columns={2}
+        isReversed={index % 2 === 1}
+      >
+        <div
+          slot="image"
+          class="flex items-center justify-center rounded-2xl bg-white p-12 shadow-lg ring-1 ring-slate-200 dark:ring-slate-700"
+        >
+          {project.id === 'vetdiwan' ? (
+            <img src={vetdiwanLogo.src} width="160" height="160" alt={project.imageAlt} loading="lazy" />
+          ) : (
+            <Icon name="tabler:building-community" class="w-40 h-40 text-primary" aria-label={project.imageAlt} />
+          )}
+        </div>
+      </Content>
+    ))
+  }
 
-  <CallToAction
+  <ContactSection
     id="contact"
     title={dict.contact.title}
     subtitle={dict.contact.subtitle}
-    actions={[{ variant: 'primary', text: CONTACT_EMAIL, href: CONTACT_HREF, icon: 'tabler:mail' }]}
+    email={CONTACT_EMAIL}
+    labels={dict.contact}
   />
 </Layout>

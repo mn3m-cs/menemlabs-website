@@ -1,0 +1,76 @@
+---
+import { Icon } from 'astro-icon/components';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import Button from '~/components/ui/Button.astro';
+
+export interface Props {
+  id?: string;
+  title: string;
+  subtitle?: string;
+  email: string;
+  labels: { copy: string; copied: string; openMailApp: string; openGmail: string };
+}
+
+const { id, title, subtitle, email, labels } = Astro.props;
+
+const gmailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
+---
+
+<WidgetWrapper id={id} containerClass="max-w-6xl mx-auto">
+  <div
+    class="max-w-3xl mx-auto p-6 rounded-md shadow-xl dark:shadow-none dark:border dark:border-slate-600 text-center"
+  >
+    <Headline
+      title={title}
+      subtitle={subtitle}
+      classes={{
+        container: 'mb-0 md:mb-0',
+        title: 'text-4xl md:text-4xl font-bold tracking-tighter mb-4 font-heading',
+        subtitle: 'text-xl text-muted dark:text-slate-400',
+      }}
+    />
+
+    <div class="mt-8 flex flex-col items-center gap-3">
+      <div
+        class="inline-flex items-center gap-3 rounded-xl border border-gray-200 dark:border-slate-600 ps-4 pe-2 py-2"
+        dir="ltr"
+      >
+        <Icon name="tabler:mail" class="w-5 h-5 text-primary" />
+        <span class="text-lg md:text-xl font-semibold select-all">{email}</span>
+        <button
+          type="button"
+          class="btn btn-tertiary gap-1.5 py-1.5 px-3 text-sm"
+          data-copy-email={email}
+          data-copied-label={labels.copied}
+          dir="auto"
+        >
+          <Icon name="tabler:copy" class="w-4 h-4" />
+          <span data-copy-label>{labels.copy}</span>
+        </button>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3">
+        <Button variant="primary" text={labels.openGmail} href={gmailHref} target="_blank" icon="tabler:brand-gmail" />
+        <Button variant="secondary" text={labels.openMailApp} href={`mailto:${email}`} icon="tabler:mail-forward" />
+      </div>
+    </div>
+  </div>
+</WidgetWrapper>
+
+<script>
+  document.addEventListener('click', async (event) => {
+    const button = (event.target as Element | null)?.closest<HTMLButtonElement>('[data-copy-email]');
+    if (!button) return;
+    const label = button.querySelector<HTMLElement>('[data-copy-label]');
+    try {
+      await navigator.clipboard.writeText(button.dataset.copyEmail || '');
+    } catch {
+      return;
+    }
+    if (!label) return;
+    const original = label.textContent;
+    label.textContent = button.dataset.copiedLabel || '';
+    setTimeout(() => (label.textContent = original), 2000);
+  });
+</script>

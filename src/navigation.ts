@@ -15,7 +15,7 @@ export const getHeaderData = (locale: Locale) => {
       { text: dict.nav.work, href: '#work' },
       { text: dict.nav.contact, href: '#contact' },
     ],
-    actions: [{ text: dict.nav.talkToUs, href: CONTACT_HREF }],
+    actions: [{ text: dict.nav.talkToUs, href: '#contact' }],
     languageSwitch: {
       text: dict.nav.switchLanguage,
       ariaLabel: dict.nav.switchLanguageLabel,
@@ -27,10 +27,23 @@ export const getHeaderData = (locale: Locale) => {
 
 export const getFooterData = (locale: Locale) => {
   const dict = t(locale);
+  const home = getLocalePermalink(locale);
 
   return {
-    homeHref: getLocalePermalink(locale),
-    links: [],
+    homeHref: home,
+    links: [
+      {
+        title: dict.footer.pagesTitle,
+        links: [
+          { text: dict.nav.work, href: `${home}#work` },
+          { text: dict.nav.contact, href: `${home}#contact` },
+        ],
+      },
+      {
+        title: dict.footer.contactTitle,
+        links: [{ text: CONTACT_EMAIL, href: CONTACT_HREF }],
+      },
+    ],
     secondaryLinks: [],
     socialLinks: [{ ariaLabel: CONTACT_EMAIL, icon: 'tabler:mail', href: CONTACT_HREF }],
     footNote: `© ${new Date().getFullYear()} ${SITE?.name}. ${dict.footer.rights}`,
