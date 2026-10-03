@@ -4,7 +4,7 @@ export default {
   metadata: {
     title: 'Menem Labs — Software that runs your business',
     description:
-      'Menem Labs builds and implements ERPNext — more than six years in healthcare and construction — along with custom business systems, web platforms and mobile apps.',
+      'Menem Labs builds and implements ERPNext — more than six years in healthcare, construction and real estate — along with custom business systems, web platforms and mobile apps.',
   },
 
   nav: {
@@ -26,18 +26,21 @@ export default {
   expertise: {
     tagline: 'ERPNext',
     title: 'More than six years with ERPNext',
-    subtitle: 'In healthcare and construction — we build on ERPNext and we implement it.',
+    subtitle: 'In healthcare, and in construction and real estate — for developers and brokers alike.',
     items: [
       {
         title: 'Healthcare',
         description: 'Clinic workflows on ERPNext and its Healthcare app — VetDiwan is built on them.',
       },
-      { title: 'Construction', description: 'Projects and accounting for construction businesses on ERPNext.' },
       {
-        title: 'Development',
-        description: 'Custom apps, customizations and integrations on Frappe and ERPNext.',
+        title: 'Real-estate developers',
+        description: 'ERPNext for developers and construction companies — projects and accounting.',
       },
-      { title: 'Implementation', description: 'Setting up ERPNext for your business and rolling it out to your team.' },
+      { title: 'Real-estate brokers', description: 'Brokerage firms running their business on ERPNext.' },
+      {
+        title: 'Built and rolled out by us',
+        description: 'Custom apps, customizations and integrations on Frappe and ERPNext, set up for your team.',
+      },
     ],
   },
 
