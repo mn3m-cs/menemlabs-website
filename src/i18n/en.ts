@@ -49,7 +49,7 @@ export default {
         title: 'VetDiwan',
         subtitle: 'Veterinary clinic management system',
         description:
-          'VetDiwan runs a veterinary clinic from the front desk to the invoice — in Arabic and English, with a workspace for every role in the clinic.',
+          'VetDiwan runs a veterinary clinic from the front desk to the invoice, with a workspace for every role in the clinic.',
         action: 'Request a demo',
         imageAlt: 'VetDiwan logo',
         items: [
@@ -75,7 +75,7 @@ export default {
         title: 'Accounts and projects for a construction cooperative',
         subtitle: 'Desktop system for the Production Cooperative Society for Construction and Reconstruction, Abnoub',
         description:
-          "A Windows desktop application in Arabic that runs the society's accounts and construction projects, with several computers working on one shared database.",
+          "A Windows desktop application that runs the society's accounts and construction projects, with several computers working on one shared database.",
         action: 'Build something similar',
         imageAlt: 'Construction projects',
         items: [
