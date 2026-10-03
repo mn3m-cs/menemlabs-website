@@ -8,7 +8,7 @@ export default {
   },
 
   nav: {
-    expertise: 'ERPNext',
+    expertise: 'Expertise',
     work: 'Our work',
     contact: 'Contact',
     talkToUs: 'Talk to us',
@@ -24,7 +24,7 @@ export default {
   },
 
   expertise: {
-    tagline: 'ERPNext',
+    tagline: 'Expertise',
     title: 'More than six years with ERPNext',
     subtitle: 'In healthcare, and in construction and real estate — for developers and brokers alike.',
     items: [

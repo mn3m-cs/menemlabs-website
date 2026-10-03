@@ -10,7 +10,7 @@ const ar: typeof en = {
   },
 
   nav: {
-    expertise: 'ERPNext',
+    expertise: 'خبراتنا',
     work: 'أعمالنا',
     contact: 'تواصل معنا',
     talkToUs: 'تحدّث معنا',
@@ -26,7 +26,7 @@ const ar: typeof en = {
   },
 
   expertise: {
-    tagline: 'ERPNext',
+    tagline: 'خبراتنا',
     title: 'خبرة تزيد على ست سنوات في ERPNext',
     subtitle: 'في الرعاية الصحية، وفي الإنشاءات والعقارات — للمطوّرين العقاريين والوسطاء العقاريين.',
     items: [
