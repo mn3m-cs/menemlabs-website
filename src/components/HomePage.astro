@@ -39,12 +39,19 @@ const PROJECT_ICONS: Record<string, string[]> = {
 const forwardArrow = locale === 'ar' ? 'tabler:arrow-narrow-left' : 'tabler:arrow-narrow-right';
 
 const OPEN_GRAPH_LOCALES: Record<Locale, string> = { en: 'en_US', ar: 'ar_AR' };
+const OPEN_GRAPH_IMAGES: Record<Locale, string> = {
+  en: '~/assets/images/default.png',
+  ar: '~/assets/images/default-ar.png',
+};
 
 const metadata = {
   title: dict.metadata.title,
   description: dict.metadata.description,
   ignoreTitleTemplate: true,
-  openGraph: { locale: OPEN_GRAPH_LOCALES[locale] },
+  openGraph: {
+    locale: OPEN_GRAPH_LOCALES[locale],
+    images: [{ url: OPEN_GRAPH_IMAGES[locale], width: 1200, height: 628 }],
+  },
 };
 
 const organizationId = `${SITE?.site}/#organization`;
@@ -104,7 +111,10 @@ const structuredData = [
       >
         <div
           slot="image"
-          class="flex items-center justify-center rounded-2xl bg-white p-12 shadow-lg ring-1 ring-slate-200 dark:ring-slate-700"
+          class:list={[
+            'flex items-center justify-center rounded-2xl bg-white p-12 shadow-lg ring-1 ring-slate-200 dark:ring-slate-700',
+            { 'dark:bg-slate-800 dark:shadow-none': project.id !== 'vetdiwan' },
+          ]}
         >
           {project.id === 'vetdiwan' ? (
             <img src={vetdiwanLogo.src} width="160" height="160" alt={project.imageAlt} loading="lazy" />

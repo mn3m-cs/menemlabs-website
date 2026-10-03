@@ -4,7 +4,7 @@ const ar: typeof en = {
   languageName: 'العربية',
 
   metadata: {
-    title: 'Menem Labs — برمجيات تُدير أعمالك',
+    title: 'Menem Labs — تطوير وتطبيق ERPNext',
     description:
       'تطوّر Menem Labs نظام ERPNext وتطبّقه — بخبرة تزيد على ست سنوات في الرعاية الصحية والإنشاءات والعقارات — إلى جانب أنظمة الأعمال المخصّصة ومنصّات الويب وتطبيقات الجوال.',
   },
@@ -86,7 +86,7 @@ const ar: typeof en = {
 
   footer: {
     contactTitle: 'تواصل معنا',
-    pagesTitle: 'Menem Labs',
+    pagesTitle: 'الصفحات',
     rights: 'جميع الحقوق محفوظة.',
   },
 

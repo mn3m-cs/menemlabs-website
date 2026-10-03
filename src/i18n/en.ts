@@ -2,7 +2,7 @@ export default {
   languageName: 'English',
 
   metadata: {
-    title: 'Menem Labs — Software that runs your business',
+    title: 'Menem Labs — ERPNext development and implementation',
     description:
       'Menem Labs builds and implements ERPNext — more than six years in healthcare, construction and real estate — along with custom business systems, web platforms and mobile apps.',
   },
@@ -106,7 +106,7 @@ export default {
 
   footer: {
     contactTitle: 'Contact',
-    pagesTitle: 'Menem Labs',
+    pagesTitle: 'Pages',
     rights: 'All rights reserved.',
   },
 
