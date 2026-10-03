@@ -51,7 +51,7 @@ export default {
         description:
           'VetDiwan runs a veterinary clinic from the front desk to the invoice, with a workspace for every role in the clinic.',
         action: 'Request a demo',
-        imageAlt: 'VetDiwan logo',
+        imageAlt: 'The VetDiwan clinic dashboard: revenue, customers and appointments for the day',
         items: [
           {
             title: 'Front desk and appointments',
