@@ -12,7 +12,7 @@ export const getHeaderData = (locale: Locale) => {
   return {
     homeHref: getLocalePermalink(locale),
     links: [
-      { text: dict.nav.expertise, href: '#erpnext' },
+      { text: dict.nav.expertise, href: '#team_exp' },
       { text: dict.nav.work, href: '#work' },
       { text: dict.nav.contact, href: '#contact' },
     ],
@@ -36,7 +36,7 @@ export const getFooterData = (locale: Locale) => {
       {
         title: dict.footer.pagesTitle,
         links: [
-          { text: dict.nav.expertise, href: `${home}#erpnext` },
+          { text: dict.nav.expertise, href: `${home}#team_exp` },
           { text: dict.nav.work, href: `${home}#work` },
           { text: dict.nav.contact, href: `${home}#contact` },
         ],
