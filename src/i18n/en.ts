@@ -28,18 +28,15 @@ export default {
     title: 'More than six years with ERPNext',
     subtitle: 'In healthcare, and in construction and real estate — for developers and brokers alike.',
     items: [
-      {
-        title: 'Healthcare',
-        description: 'Clinic workflows on ERPNext and its Healthcare app — VetDiwan is built on them.',
-      },
+      { title: 'Healthcare', description: 'Clinic systems and workflows — the foundation VetDiwan is built on.' },
       {
         title: 'Real-estate developers',
-        description: 'ERPNext for developers and construction companies — projects and accounting.',
+        description: 'Projects and accounting for developers and construction companies.',
       },
-      { title: 'Real-estate brokers', description: 'Brokerage firms running their business on ERPNext.' },
+      { title: 'Real-estate brokers', description: 'Systems that brokerage firms run their business on.' },
       {
         title: 'Built and rolled out by us',
-        description: 'Custom apps, customizations and integrations on Frappe and ERPNext, set up for your team.',
+        description: 'Custom apps, customizations and integrations, set up for your team.',
       },
     ],
   },
