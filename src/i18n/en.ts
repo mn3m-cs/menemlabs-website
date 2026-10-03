@@ -3,10 +3,12 @@ export default {
 
   metadata: {
     title: 'Menem Labs — Software that runs your business',
-    description: 'Menem Labs designs, builds and supports custom business systems, web platforms and mobile apps.',
+    description:
+      'Menem Labs builds and implements ERPNext — more than six years in healthcare and construction — along with custom business systems, web platforms and mobile apps.',
   },
 
   nav: {
+    expertise: 'ERPNext',
     work: 'Our work',
     contact: 'Contact',
     talkToUs: 'Talk to us',
@@ -19,6 +21,24 @@ export default {
     title: 'We build the software that runs your business',
     subtitle: 'Custom business systems, web platforms and mobile apps — designed, built and supported by one team.',
     primaryAction: 'Talk to us',
+  },
+
+  expertise: {
+    tagline: 'ERPNext',
+    title: 'More than six years with ERPNext',
+    subtitle: 'In healthcare and construction — we build on ERPNext and we implement it.',
+    items: [
+      {
+        title: 'Healthcare',
+        description: 'Clinic workflows on ERPNext and its Healthcare app — VetDiwan is built on them.',
+      },
+      { title: 'Construction', description: 'Projects and accounting for construction businesses on ERPNext.' },
+      {
+        title: 'Development',
+        description: 'Custom apps, customizations and integrations on Frappe and ERPNext.',
+      },
+      { title: 'Implementation', description: 'Setting up ERPNext for your business and rolling it out to your team.' },
+    ],
   },
 
   work: {

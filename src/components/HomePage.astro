@@ -5,6 +5,7 @@ import Hero from '~/components/widgets/Hero.astro';
 import ContactSection from '~/components/widgets/ContactSection.astro';
 import { Icon } from 'astro-icon/components';
 import Content from '~/components/widgets/Content.astro';
+import Features from '~/components/widgets/Features.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 
 import { SITE } from 'astrowind:config';
@@ -20,6 +21,8 @@ export interface Props {
 
 const { locale } = Astro.props;
 const dict = t(locale);
+
+const EXPERTISE_ICONS = ['tabler:heartbeat', 'tabler:building-skyscraper', 'tabler:code', 'tabler:rocket'];
 
 const PROJECT_ICONS: Record<string, string[]> = {
   vetdiwan: [
@@ -75,6 +78,15 @@ const structuredData = [
     title={dict.hero.title}
     subtitle={dict.hero.subtitle}
     actions={[{ variant: 'primary', text: dict.hero.primaryAction, href: '#contact', icon: 'tabler:mail' }]}
+  />
+
+  <Features
+    id="erpnext"
+    tagline={dict.expertise.tagline}
+    title={dict.expertise.title}
+    subtitle={dict.expertise.subtitle}
+    items={dict.expertise.items.map((item, index) => ({ ...item, icon: EXPERTISE_ICONS[index] }))}
+    columns={2}
   />
 
   {
