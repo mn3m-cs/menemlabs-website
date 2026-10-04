@@ -14,7 +14,7 @@ import { Image } from 'astro:assets';
 import vetdiwanDashboard from '~/assets/images/vetdiwan-dashboard.png';
 
 import { t, type Locale } from '~/i18n';
-import { CONTACT_EMAIL } from '~/navigation';
+import { CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY } from '~/navigation';
 
 export interface Props {
   locale: Locale;
@@ -138,6 +138,8 @@ const structuredData = [
     title={dict.contact.title}
     subtitle={dict.contact.subtitle}
     email={CONTACT_EMAIL}
+    accessKey={WEB3FORMS_ACCESS_KEY}
     labels={dict.contact}
+    form={dict.contact.form}
   />
 </Layout>
