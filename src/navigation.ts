@@ -4,7 +4,7 @@ import { t, getLocalePermalink, otherLocale, type Locale } from './i18n';
 
 export const CONTACT_EMAIL = 'support@menemlabs.tech';
 export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}`;
-export const WEB3FORMS_ACCESS_KEY = '';
+export const WEB3FORMS_ACCESS_KEY = '7c5f00b8-e14d-4561-9e8d-66934070a518';
 
 export const getHeaderData = (locale: Locale) => {
   const dict = t(locale);
