@@ -1,0 +1,22 @@
+---
+export interface Props {
+  text: string;
+  ariaLabel: string;
+  href: string;
+  locale: string;
+}
+
+const { text, ariaLabel, href, locale } = Astro.props;
+---
+
+<a
+  class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm font-semibold px-2 lg:px-3 py-2.5 inline-flex items-center"
+  href={href}
+  hreflang={locale}
+  lang={locale}
+  aria-label={ariaLabel}
+  data-set-locale={locale}
+  data-astro-reload
+>
+  {text}
+</a>

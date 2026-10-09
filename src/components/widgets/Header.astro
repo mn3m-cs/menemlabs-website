@@ -3,6 +3,8 @@ import { Icon } from 'astro-icon/components';
 import Logo from '~/components/Logo.astro';
 import ToggleTheme from '~/components/common/ToggleTheme.astro';
 import ToggleMenu from '~/components/common/ToggleMenu.astro';
+import LanguageSwitch from '~/components/common/LanguageSwitch.astro';
+import type { Props as LanguageSwitchProps } from '~/components/common/LanguageSwitch.astro';
 import Button from '~/components/ui/Button.astro';
 
 import { getHomePermalink } from '~/utils/permalinks';
@@ -20,17 +22,10 @@ interface MenuLink extends Link {
   links?: Array<MenuLink>;
 }
 
-interface LanguageSwitch {
-  text: string;
-  ariaLabel: string;
-  href: string;
-  locale: string;
-}
-
 export interface Props {
   id?: string;
   homeHref?: string;
-  languageSwitch?: LanguageSwitch;
+  languageSwitch?: LanguageSwitchProps;
   links?: Array<MenuLink>;
   actions?: Array<CallToAction>;
   isSticky?: boolean;
@@ -114,7 +109,13 @@ const persistKey = `header-${Array.from(
           <Logo />
         </a>
         <div class="flex items-center lg:hidden">
-          <ToggleMenu />
+          {languageSwitch && <LanguageSwitch {...languageSwitch} />}
+          {
+            showToggleTheme && (
+              <ToggleTheme class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg p-2 inline-flex items-center" />
+            )
+          }
+          <ToggleMenu class="flex flex-col h-12 w-10 rounded justify-center items-center cursor-pointer group" />
         </div>
       </div>
       <nav
@@ -177,24 +178,10 @@ const persistKey = `header-${Array.from(
           'hidden lg:self-center lg:flex items-center lg:mb-0 fixed w-full lg:w-auto lg:static justify-end left-0 rtl:left-auto rtl:right-0 bottom-0 p-3 lg:p-0 lg:justify-self-end',
         ]}
       >
-        <div class="items-center flex justify-between w-full lg:w-auto">
-          <div class="flex items-center">
-            {
-              languageSwitch && (
-                <a
-                  class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm font-semibold px-3 py-2.5 inline-flex items-center"
-                  href={languageSwitch.href}
-                  hreflang={languageSwitch.locale}
-                  lang={languageSwitch.locale}
-                  aria-label={languageSwitch.ariaLabel}
-                  data-set-locale={languageSwitch.locale}
-                  data-astro-reload
-                >
-                  {languageSwitch.text}
-                </a>
-              )
-            }
-            {showToggleTheme && <ToggleTheme iconClass="w-6 h-6 lg:w-5 lg:h-5 lg:inline-block" />}
+        <div class="items-center flex justify-end w-full lg:w-auto">
+          <div class="hidden lg:flex items-center">
+            {languageSwitch && <LanguageSwitch {...languageSwitch} />}
+            {showToggleTheme && <ToggleTheme iconClass="w-5 h-5 inline-block" />}
             {
               showRssFeed && (
                 <a
